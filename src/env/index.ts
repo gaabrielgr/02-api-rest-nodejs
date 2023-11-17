@@ -13,8 +13,9 @@ if (process.env.NODE_ENV === 'test') {
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'), // NODE_ENV será um enum e se não for definido, ficará com o valor padrão 'production'
+  DATABASE_CLIENT: z.enum(['sqlite', 'pg']), // DATABASE_CLIENT será um enum e se não for definido, ficará com o valor padrão 'pg'
   DATABASE_URL: z.string(), // DATABASE_URL é a nossa URL
-  PORT: z.number().default(3333), // PORT É a nossa porta, não seja preenchida  vai receber o número 3333 como padrão
+  PORT: z.coerce.number().default(3333), // PORT É a nossa porta, não seja preenchida  vai receber o número 3333 como padrão
 })
 
 const _env = envSchema.safeParse(process.env)
